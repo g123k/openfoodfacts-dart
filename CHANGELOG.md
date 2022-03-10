@@ -15,6 +15,13 @@
 
 * successful unit tests ([#384](https://github.com/openfoodfacts/openfoodfacts-dart/issues/384)) ([ba2b731](https://github.com/openfoodfacts/openfoodfacts-dart/commit/ba2b7311546400401c6ed8cb6370a2316e4fd690))
 
+### [1.13.1](https://github.com/openfoodfacts/openfoodfacts-dart/compare/v1.13.0...v1.13.1) (2022-03-10)
+
+
+### Bug Fixes
+
+* changelog order ([#405](https://github.com/openfoodfacts/openfoodfacts-dart/issues/405)) ([ca4669c](https://github.com/openfoodfacts/openfoodfacts-dart/commit/ca4669cb801621cb05e840ac6f0671d8a2b3418d))
+
 ## [1.12.0](https://github.com/openfoodfacts/openfoodfacts-dart/compare/v1.11.1...v1.12.0) (2022-02-02)
 
 
