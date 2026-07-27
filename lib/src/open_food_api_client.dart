@@ -36,6 +36,7 @@ import 'model/taxonomy_packaging_shape.dart';
 import 'model/user.dart';
 import 'prices/maybe_error.dart';
 import 'utils/abstract_query_configuration.dart';
+import 'utils/api_version.dart';
 import 'utils/country_helper.dart';
 import 'utils/http_helper.dart';
 import 'utils/language_helper.dart';
@@ -166,6 +167,7 @@ class OpenFoodAPIClient {
     required final User user,
     final Map<String, dynamic> extraParameters = const <String, dynamic>{},
     final UriProductHelper uriHelper = uriHelperFoodProd,
+    final ProductQueryVersion version = ProductQueryVersion.latestVersion,
   }) async {
     final Map<String, dynamic> parameterMap = <String, dynamic>{};
     parameterMap.addAll(user.toData());
@@ -173,7 +175,7 @@ class OpenFoodAPIClient {
     parameterMap['product'] = productParameters;
 
     var productUri = uriHelper.getPatchUri(
-      path: '/api/v3/product/${Uri.encodeComponent(barcode)}',
+      path: version.getApiPath('product/${Uri.encodeComponent(barcode)}'),
     );
 
     final Response response = await HttpHelper().doPatchRequest(
@@ -515,8 +517,9 @@ class OpenFoodAPIClient {
     TaxonomyQueryConfiguration<T, F> configuration, {
     User? user,
     final UriProductHelper uriHelper = uriHelperFoodProd,
+    final ApiVersion version = TaxonomyQueryConfiguration.defaultVersion,
   }) async {
-    final Uri uri = configuration.getPostUri(uriHelper);
+    final Uri uri = configuration.getPostUri(uriHelper, version: version);
     final Response response = await HttpHelper().doPostRequest(
       uri,
       configuration.getParametersMap(),
@@ -550,10 +553,12 @@ class OpenFoodAPIClient {
     TaxonomyPackagingShapeQueryConfiguration configuration, {
     User? user,
     final UriProductHelper uriHelper = uriHelperFoodProd,
+    final ApiVersion version = TaxonomyQueryConfiguration.defaultVersion,
   }) => getTaxonomy<TaxonomyPackagingShape, TaxonomyPackagingShapeField>(
     configuration,
     user: user,
     uriHelper: uriHelper,
+    version: version,
   );
 
   static Future<Map<String, TaxonomyPackagingMaterial>?>
@@ -561,10 +566,12 @@ class OpenFoodAPIClient {
     TaxonomyPackagingMaterialQueryConfiguration configuration, {
     User? user,
     final UriProductHelper uriHelper = uriHelperFoodProd,
+    final ApiVersion version = TaxonomyQueryConfiguration.defaultVersion,
   }) => getTaxonomy<TaxonomyPackagingMaterial, TaxonomyPackagingMaterialField>(
     configuration,
     user: user,
     uriHelper: uriHelper,
+    version: version,
   );
 
   static Future<Map<String, TaxonomyPackagingRecycling>?>
@@ -572,111 +579,133 @@ class OpenFoodAPIClient {
     TaxonomyPackagingRecyclingQueryConfiguration configuration, {
     User? user,
     final UriProductHelper uriHelper = uriHelperFoodProd,
+    final ApiVersion version = TaxonomyQueryConfiguration.defaultVersion,
   }) =>
       getTaxonomy<TaxonomyPackagingRecycling, TaxonomyPackagingRecyclingField>(
         configuration,
         user: user,
         uriHelper: uriHelper,
+        version: version,
       );
 
   static Future<Map<String, TaxonomyNova>?> getTaxonomyNova(
     TaxonomyNovaQueryConfiguration configuration, {
     User? user,
     final UriProductHelper uriHelper = uriHelperFoodProd,
+    final ApiVersion version = TaxonomyQueryConfiguration.defaultVersion,
   }) => getTaxonomy<TaxonomyNova, TaxonomyNovaField>(
     configuration,
     user: user,
     uriHelper: uriHelper,
+    version: version,
   );
 
   static Future<Map<String, TaxonomyCategory>?> getTaxonomyCategories(
     TaxonomyCategoryQueryConfiguration configuration, {
     User? user,
     final UriProductHelper uriHelper = uriHelperFoodProd,
+    final ApiVersion version = TaxonomyQueryConfiguration.defaultVersion,
   }) => getTaxonomy<TaxonomyCategory, TaxonomyCategoryField>(
     configuration,
     user: user,
     uriHelper: uriHelper,
+    version: version,
   );
 
   static Future<Map<String, TaxonomyAdditive>?> getTaxonomyAdditives(
     TaxonomyAdditiveQueryConfiguration configuration, {
     User? user,
     final UriProductHelper uriHelper = uriHelperFoodProd,
+    final ApiVersion version = TaxonomyQueryConfiguration.defaultVersion,
   }) => getTaxonomy<TaxonomyAdditive, TaxonomyAdditiveField>(
     configuration,
     user: user,
     uriHelper: uriHelper,
+    version: version,
   );
 
   static Future<Map<String, TaxonomyAllergen>?> getTaxonomyAllergens(
     TaxonomyAllergenQueryConfiguration configuration, {
     User? user,
     final UriProductHelper uriHelper = uriHelperFoodProd,
+    final ApiVersion version = TaxonomyQueryConfiguration.defaultVersion,
   }) => getTaxonomy<TaxonomyAllergen, TaxonomyAllergenField>(
     configuration,
     user: user,
     uriHelper: uriHelper,
+    version: version,
   );
 
   static Future<Map<String, TaxonomyCountry>?> getTaxonomyCountries(
     TaxonomyCountryQueryConfiguration configuration, {
     User? user,
     final UriProductHelper uriHelper = uriHelperFoodProd,
+    final ApiVersion version = TaxonomyQueryConfiguration.defaultVersion,
   }) => getTaxonomy<TaxonomyCountry, TaxonomyCountryField>(
     configuration,
     user: user,
     uriHelper: uriHelper,
+    version: version,
   );
 
   static Future<Map<String, TaxonomyIngredient>?> getTaxonomyIngredients(
     TaxonomyIngredientQueryConfiguration configuration, {
     User? user,
     final UriProductHelper uriHelper = uriHelperFoodProd,
+    final ApiVersion version = TaxonomyQueryConfiguration.defaultVersion,
   }) => getTaxonomy<TaxonomyIngredient, TaxonomyIngredientField>(
     configuration,
     user: user,
     uriHelper: uriHelper,
+    version: version,
   );
 
   static Future<Map<String, TaxonomyLabel>?> getTaxonomyLabels(
     TaxonomyLabelQueryConfiguration configuration, {
     User? user,
     final UriProductHelper uriHelper = uriHelperFoodProd,
+    final ApiVersion version = TaxonomyQueryConfiguration.defaultVersion,
   }) => getTaxonomy<TaxonomyLabel, TaxonomyLabelField>(
     configuration,
     user: user,
     uriHelper: uriHelper,
+    version: version,
   );
 
   static Future<Map<String, TaxonomyLanguage>?> getTaxonomyLanguages(
     TaxonomyLanguageQueryConfiguration configuration, {
     User? user,
     final UriProductHelper uriHelper = uriHelperFoodProd,
+    final ApiVersion version = TaxonomyQueryConfiguration.defaultVersion,
   }) => getTaxonomy<TaxonomyLanguage, TaxonomyLanguageField>(
     configuration,
     user: user,
     uriHelper: uriHelper,
+    version: version,
   );
 
   static Future<Map<String, TaxonomyPackaging>?> getTaxonomyPackagings(
     final TaxonomyPackagingQueryConfiguration configuration, {
     final User? user,
     final UriProductHelper uriHelper = uriHelperFoodProd,
+    final ApiVersion version = TaxonomyQueryConfiguration.defaultVersion,
   }) => getTaxonomy<TaxonomyPackaging, TaxonomyPackagingField>(
     configuration,
     user: user,
     uriHelper: uriHelper,
+    version: version,
   );
 
   static Future<Map<String, TaxonomyOrigin>?> getTaxonomyOrigins(
     TaxonomyOriginQueryConfiguration configuration, {
     User? user,
     final UriProductHelper uriHelper = uriHelperFoodProd,
+    final ApiVersion version = TaxonomyQueryConfiguration.defaultVersion,
   }) => getTaxonomy<TaxonomyOrigin, TaxonomyOriginField>(
     configuration,
     user: user,
     uriHelper: uriHelper,
+    version: version,
   );
 
   static void _removeImages(
@@ -793,6 +822,7 @@ class OpenFoodAPIClient {
     final String? shape,
     final int limit = 25,
     final UriProductHelper uriHelper = uriHelperFoodProd,
+    final ProductQueryVersion version = ProductQueryVersion.latestVersion,
     final User? user,
   }) async {
     final Map<String, String> queryParameters = <String, String>{
@@ -805,7 +835,7 @@ class OpenFoodAPIClient {
       'limit': limit.toString(),
     };
     final Uri uri = uriHelper.getUri(
-      path: '/api/v3/taxonomy_suggestions',
+      path: version.getApiPath('taxonomy_suggestions'),
       queryParameters: queryParameters,
     );
     final Response response = await HttpHelper().doGetRequest(
@@ -845,6 +875,7 @@ class OpenFoodAPIClient {
     required final List<String> localizedNames,
     required final OpenFoodFactsLanguage language,
     final UriProductHelper uriHelper = uriHelperFoodProd,
+    final ProductQueryVersion version = ProductQueryVersion.latestVersion,
   }) async {
     final List<String> input = _cleanTags(localizedNames);
     if (input.isEmpty) {
@@ -856,7 +887,7 @@ class OpenFoodAPIClient {
       'local_tags_list': input.join(','),
     };
     final Uri uri = uriHelper.getUri(
-      path: '/api/v3/taxonomy_canonicalize_tags',
+      path: version.getApiPath('taxonomy_canonicalize_tags'),
       queryParameters: queryParameters,
     );
     final Response response = await HttpHelper().doGetRequest(
@@ -901,6 +932,7 @@ class OpenFoodAPIClient {
     required final List<String> canonicalTags,
     required final OpenFoodFactsLanguage language,
     final UriProductHelper uriHelper = uriHelperFoodProd,
+    final ProductQueryVersion version = ProductQueryVersion.latestVersion,
   }) async {
     final List<String> input = _cleanTags(canonicalTags);
     if (input.isEmpty) {
@@ -912,7 +944,7 @@ class OpenFoodAPIClient {
       'canonical_tags_list': input.join(','),
     };
     final Uri uri = uriHelper.getUri(
-      path: '/api/v3/taxonomy_display_tags',
+      path: version.getApiPath('taxonomy_display_tags'),
       queryParameters: queryParameters,
     );
     final Response response = await HttpHelper().doGetRequest(
@@ -1394,11 +1426,11 @@ class OpenFoodAPIClient {
   /// Returns the list of all external source metadata.
   static Future<MaybeError<List<ExternalSourceMetadata>>>
   getExternalSourceMetadatas({
-    final ProductQueryVersion version = ProductQueryVersion.v3,
+    final ProductQueryVersion version = ProductQueryVersion.latestVersion,
     final UriProductHelper uriHelper = uriHelperFoodProd,
   }) async {
     final Response response = await HttpHelper().doGetRequest(
-      uriHelper.getUri(path: 'api/v${version.version}/external_sources'),
+      uriHelper.getUri(path: version.getApiPath('external_sources')),
       uriHelper: uriHelper,
     );
     if (response.statusCode != 200) {
